@@ -1,5 +1,4 @@
 import { Box, Center, VStack } from 'native-base'
-
 import FormHeader from '../components/FormHeader'
 import FormInputEmail from '../components/FormInputEmail'
 import FormInputPassword from '../components/FormInputPassword'
@@ -17,15 +16,13 @@ const SignUpScreen = () => {
 
   const checkValid = () => {
     if (!email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)) {
-      setErrorEmail('Please, write valid email!')
+      setErrorEmail('Please enter a valid email!')
       return false
     }
-    setErrorEmail('')
     if (!password.match(/^(?!.*\s)(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/)) {
-      setErrorPassword('Please, write valid password!')
+      setErrorPassword('Please enter a valid password!')
       return false
     }
-    setErrorPassword('')
     return true
   }
 
@@ -35,7 +32,6 @@ const SignUpScreen = () => {
         setLoading(true)
         const auth = getAuth()
         await createUserWithEmailAndPassword(auth, email, password)
-        alert('user created')
       } catch (error) {
         if (error.message === 'Firebase: Error (auth/email-already-in-use).') {
           setErrorEmail('User already exist!')
@@ -52,12 +48,12 @@ const SignUpScreen = () => {
         <VStack space='3' mt='5'>
           <FormInputEmail
             email={email}
-            setEmailValue={(text) => setEmail(text)}
+            setEmailValue={(text) => [setEmail(text), setErrorEmail('')]}
             errorEmail={errorEmail}
           />
           <FormInputPassword
             password={password}
-            setPasswordValue={(text) => setPassword(text)}
+            setPasswordValue={(text) => [setPassword(text), setErrorPassword('')]}
             errorPassword={errorPassword}
           />
           <FormButton

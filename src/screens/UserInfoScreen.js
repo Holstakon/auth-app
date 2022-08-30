@@ -1,5 +1,5 @@
 import { getAuth, signOut } from 'firebase/auth'
-import { Box, Button, Text } from 'native-base'
+import { Box, Button, Center, Text } from 'native-base'
 import { useSelector } from 'react-redux'
 
 const UserInfoScreen = () => {
@@ -11,11 +11,13 @@ const UserInfoScreen = () => {
   }
 
   return (
-    <Box height='100%' width='100%' safeArea>
-      <Text>User id: {user?.uid}</Text>
-      <Text>email: {user?.email}</Text>
-      <Button onPress={handleSignOut}>SIGN OUT</Button>
-    </Box>
+    <Center height='100%' width='100%'>
+      <Box>
+        <Text>User id: {user?.uid}</Text>
+        <Text>email: {user?.email}</Text>
+        <Button onPress={handleSignOut}>SIGN OUT</Button>
+      </Box>
+    </Center>
   )
 }
 
